@@ -5,9 +5,10 @@ import javax.swing.*;
 
 class game extends JPanel 
 {
+	//Declarations
 	public static JFrame frame;
-	private static int w = 500;
-	private static int h = 500;
+	private static int w = 600;
+	private static int h = 600;
 	public static int lw = h/20;
 	public static int lh = h/4;
 	
@@ -22,13 +23,16 @@ class game extends JPanel
 	
 	public static ball b;
 
+	//Constructor,creates ball in middle of board
 	public game()
 	{
 		super();
 		this.setBackground(Color.BLACK);
 		this.setSize(w,h);
+
 		System.out.println(lw+", "+x2);
-		b = new ball(w/2,h/2,w,h);
+
+		b = new ball(w,h);
 
 	}
 
@@ -36,10 +40,12 @@ class game extends JPanel
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		int c = b.getCirc();
 		Graphics2D g2 = (Graphics2D) g;
+		int c = b.getCirc();
+
 		//System.out.println(x+", "+y+", "+x2+", "+y2);
-		g2.setColor(new Color(0xDCDCDC));
+		g2.setColor(new Color(0xDCDCDC));//colouring the pieces white
+		//drawing two 'bats' and ball
 		g2.fillRect(x,y,lw,lh);
 		g2.fillRect(x2,y2,lw,lh);
 		g2.fillOval(b.x-c,b.y-c,c,c);
@@ -49,7 +55,7 @@ class game extends JPanel
 
 	public static void move()
 	{
-		if(y <= 0 && dir<0 || y >= (h-lh) && dir>0)
+		if(y <= 0 && dir<0 || y >= (h-lh) && dir>0) //if collision with edge
 			dir=0;
 		if(y2 <= 0 && dir2<0 || y2 >= (h-lh) && dir2>0)
 			dir2=0;
@@ -59,9 +65,9 @@ class game extends JPanel
 
 	public static void keyHandlerP1(int kC)
 	{
-		if(kC == 38)
+		if(kC == 38) //Arrow key up
 			dir = -10;
-		else if(kC == 40)
+		else if(kC == 40) //Arrow key down
 			dir = 10;
 		else
 			dir = 0;
@@ -69,9 +75,9 @@ class game extends JPanel
 	}	
 	public static void keyHandlerP2(int kC)
 	{
-		if(kC == 87)
+		if(kC == 87) //W
 			dir2 = -10;
-		else if(kC == 83)
+		else if(kC == 83) //S
 			dir2 = 10;
 		else 
 			dir2 = 0;
@@ -81,19 +87,21 @@ class game extends JPanel
 	public static void main(String[] args)
 	{
 		int step = 0;
-		game g = new game();
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setSize(w,h);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		game g = new game();
 		frame.add(g);
+
 		frame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				keyHandlerP1(e.getKeyCode());
 			}			
 		});
 		frame.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) { //Still not really working
 				keyHandlerP2(e.getKeyCode());
 			}			
 		});
