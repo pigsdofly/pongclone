@@ -30,15 +30,24 @@ class ball
 	}
 
 
-	public void checkCollision(int x,int x2,int y, int y2)
+	public void checkCollision(int bx,int bx2,int by, int by2)
 	{
+		System.out.println(bx+", "+bx2+", "+by+", "+by2);
 		if(this.y >= h || this.y <= 0)
-			this.grady = -1;
-		if(this.x == x && this.y == y) {
-			this.gradx *= -1;
 			this.grady *= -1;
+		if(this.x <= bx && this.y <= by && this.y >= (by+(h/4))) {
+			reflect();
+		}
+		if(this.x >= bx2 && this.y <= by2 && this.y >=(by+(h/4))) {
+			reflect();
 		}
 		
+	}
+
+	public void reflect()
+	{
+		this.gradx*=-1;
+		this.grady*=-1;
 	}
 
 	public int getCirc()
@@ -48,7 +57,6 @@ class ball
 
 	public void move()
 	{
-		System.out.println(grady);
 		x += gradx;
 		y += grady;
 	}
