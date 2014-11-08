@@ -6,16 +6,16 @@ import javax.swing.*;
 class game extends JPanel 
 {
 	public static JFrame frame;
-	private static int w = 600;
-	private static int h = 600;
+	private static int w = 500;
+	private static int h = 500;
 	public static int lw = h/20;
 	public static int lh = h/4;
 	
 	public static int x = 0;
 	public static int y = (h/4)+(lh/2);
 
-	public static int x2 = w - lw;
-	public static int y2 = (h/4)+(lh/2);
+	public static int x2 = (w - lw);
+	public static int y2 = y;
 
 	public static int dir;
 	public static int dir2;
@@ -28,7 +28,7 @@ class game extends JPanel
 		this.setBackground(Color.BLACK);
 		this.setSize(w,h);
 		System.out.println(lw+", "+x2);
-		b = new ball(w/2,h/2);
+		b = new ball(w/2,h/2,w,h);
 
 	}
 
@@ -36,12 +36,13 @@ class game extends JPanel
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
+		int c = b.getCirc();
 		Graphics2D g2 = (Graphics2D) g;
 		//System.out.println(x+", "+y+", "+x2+", "+y2);
 		g2.setColor(new Color(0xDCDCDC));
 		g2.fillRect(x,y,lw,lh);
-		g2.fillRect(x2,y2,lw*2,lh);
-		g2.fillOval(b.x-b.getCirc(),b.y-b.getCirc(),b.getCirc(),b.getCirc());
+		g2.fillRect(x2,y2,lw,lh);
+		g2.fillOval(b.x-c,b.y-c,c,c);
 
 
 	}
@@ -101,6 +102,7 @@ class game extends JPanel
 		{
 			if(step %500000 == 0)
 			{
+				b.checkCollision(lw,x2,y,y2);
 				b.move();
 				g.repaint();
 			}

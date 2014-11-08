@@ -2,13 +2,15 @@ import java.util.*;
 
 class ball
 {
-	public int x,y;
+	public int x,y,h,w;
 	private int circ = 25;
 	public int gradx,grady;
-	public ball(int x,int y)
+	public ball(int x,int y,int h, int w)
 	{
 		this.x = x;
 		this.y = y;
+		this.h = h;
+		this.w = w;
 		
 		initGrad();
 
@@ -28,12 +30,16 @@ class ball
 	}
 
 
-/*	public void checkCollision(int x2, int y2)
+	public void checkCollision(int x,int x2,int y, int y2)
 	{
-		if(x2 == 0) {
-			
+		if(this.y >= h || this.y <= 0)
+			this.grady = -1;
+		if(this.x == x && this.y == y) {
+			this.gradx *= -1;
+			this.grady *= -1;
 		}
-	}*/
+		
+	}
 
 	public int getCirc()
 	{
@@ -42,6 +48,7 @@ class ball
 
 	public void move()
 	{
+		System.out.println(grady);
 		x += gradx;
 		y += grady;
 	}
