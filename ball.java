@@ -8,10 +8,12 @@ class ball
 	
 	private int circ = 25;//init circumference
 
-	public ball(int h, int w)
+	public ball(int w, int h)
 	{
-		this.h = h;
+		//initialising local copies of width and height and defining 
+		//startpos with them
 		this.w = w;
+		this.h = h;
 
 		this.x = w/2;
 		this.y = h/2;
