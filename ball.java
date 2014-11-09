@@ -4,7 +4,8 @@ class ball
 {
 	//Declarations
 	public int x,y,h,w;
-	public int gradx,grady;
+	private int gradx,grady;
+	private boolean p1score,p2score;
 	
 	private int circ = 25;//init circumference
 
@@ -30,15 +31,13 @@ class ball
 		this.grady = rdm.nextInt(3) - 1;
 		
 		if(gradx == 0 && grady == 0)
-		{
 			initGrad(); 		
-		}
 	}
 
 
 	public void checkCollision(int bx,int bx2,int by, int by2)
 	{
-		System.out.println(bx+", "+bx2+", "+by+", "+by2);
+		//System.out.println(bx+", "+bx2+", "+by+", "+by2);
 		if(this.x >= bx2 && this.y >= by2 && this.y <= (by2+(h/4))) 
 			reflect();
 		
@@ -50,6 +49,38 @@ class ball
 		if(this.y >= h || this.y-circ <= 0)
 			this.grady *= -1;
 		
+		if(this.x <= 0) {
+			resetPos();
+			p2score = true;
+		}
+		if(this.x >= w) {
+			resetPos();
+			p1score = true;
+		}
+	}
+
+	private void resetPos()
+	{
+		this.x = w/2;
+		this.y = h/2;
+		initGrad();
+	}
+
+	public int checkPoint()
+	{
+		if(p1score) {
+			p1score = false;
+			return 1;
+		}
+		if(p2score) {
+			p2score = false;
+			return 2;
+		}
+		else {
+			p1score = false;
+			p2score = false;
+			return 0;
+		}
 	}
 
 	public void reflect()

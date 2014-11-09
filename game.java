@@ -9,6 +9,7 @@ class game extends JPanel
 	public static JFrame frame;
 	private static int w = 640;
 	private static int h = 480;
+
 	public static int lw = h/20;
 	public static int lh = h/4;
 	
@@ -17,6 +18,8 @@ class game extends JPanel
 
 	public static int x2 = (w - lw);
 	public static int y2 = y;
+
+	public static int[] score = {0,0,0};
 
 	public static int dir;
 	public static int dir2;
@@ -100,6 +103,7 @@ class game extends JPanel
 	public static void main(String[] args)
 	{
 		int step = 0;
+		int i = 0;
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setSize(w,h);
@@ -124,6 +128,11 @@ class game extends JPanel
 			if(step %500000 == 0)
 			{
 				b.checkCollision(lw,x2,y,y2);
+				i = b.checkPoint();
+				if(i != 0) {
+					game.score[i] += 1;
+					System.out.println("Player "+i+" Score:"+game.score[i]);
+				}
 				b.move();
 				g.repaint();
 			}
