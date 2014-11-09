@@ -123,12 +123,9 @@ class game extends JPanel
 		{
 			if(step %500000 == 0)
 			{
-				g.repaint();
-			}
-			if(step %1000000 ==0)
-			{
 				b.checkCollision(lw,x2,y,y2);
 				b.move();
+				g.repaint();
 			}
 			step++;
 		}

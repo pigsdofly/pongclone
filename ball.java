@@ -39,15 +39,15 @@ class ball
 	public void checkCollision(int bx,int bx2,int by, int by2)
 	{
 		System.out.println(bx+", "+bx2+", "+by+", "+by2);
-		if(this.x <= bx && this.y <= by && this.y >= (by+(h/4))) 
+		if(this.x >= bx2 && this.y >= by2 && this.y <= (by2+(h/4))) 
 			reflect();
 		
 		
-		if(this.x+circ >= bx2 && this.y <= by2 && this.y >=(by+(h/4))) 
+		if(this.x <= bx && this.y >= by && this.y <=(by+(h/4))) 
 			reflect();
 		
 		
-		if(this.y >= h || this.y <= 0)
+		if(this.y >= h || this.y-circ <= 0)
 			this.grady *= -1;
 		
 	}
