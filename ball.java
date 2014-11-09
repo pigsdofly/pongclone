@@ -24,7 +24,7 @@ class ball
 		
 		initGrad();
 
-		System.out.println(gradx+", "+grady+", "+x+", "+y);
+		//System.out.println(gradx+", "+grady+", "+x+", "+y);
 	}
 
 	private double randominRange(double min, double max)
@@ -40,13 +40,11 @@ class ball
 
 		if(gradx <= 0.15 && gradx>= -0.15 || grady >=-0.15 && grady<=0.15)
 			initGrad(); 		
-		System.out.println(gradx+", "+grady);
 	}
 
 
 	public void checkCollision(int bx,int bx2,int by, int by2)
 	{
-	//	System.out.println(bx+", "+bx2+", "+by+", "+by2);
 		if(this.x >= bx2 && this.y >= by2 && this.y <= (by2+(h/4))) 
 			reflect();
 		
@@ -98,14 +96,14 @@ class ball
 	{
 		this.gradx*=-1;
 		this.grady*=-1;
-		if(gradx <0)
-			gradx -= 0.1;
-		else
-			gradx += 0.1;
-		if(grady<0)
-			grady -=0.1;
-		else
-			grady += 0.1;
+		gradx += randominRange(-0.1,0.1);
+		grady += randominRange(-0.1,0.1);
+		printGrad();
+	}
+
+	public void printGrad()
+	{
+		System.out.println(gradx+", "+grady);
 	}
 
 	public int getCirc()
