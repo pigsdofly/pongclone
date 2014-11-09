@@ -7,8 +7,8 @@ class game extends JPanel
 {
 	//Declarations
 	public static JFrame frame;
-	private static int w = 600;
-	private static int h = 600;
+	private static int w = 640;
+	private static int h = 480;
 	public static int lw = h/20;
 	public static int lh = h/4;
 	
@@ -45,9 +45,10 @@ class game extends JPanel
 
 		//System.out.println(x+", "+y+", "+x2+", "+y2);
 		g2.setColor(new Color(0xDCDCDC));//colouring the pieces white
+
 		//drawing two 'bats' and ball
 		g2.fillRect(x,y,lw,lh);
-		g2.fillRect(x2,y2,lw,lh);
+		g2.fillRect(x2-10,y2,lw,lh);
 		g2.fillOval(b.x-c,b.y-c,c,c);
 
 
@@ -55,10 +56,22 @@ class game extends JPanel
 
 	public static void move()
 	{
-		if(y <= 0 && dir<0 || y >= (h-lh) && dir>0) //if collision with edge
+		if(y <= 0 && dir<0 ) { //if collision with edge
 			dir=0;
-		if(y2 <= 0 && dir2<0 || y2 >= (h-lh) && dir2>0)
+		}
+		if(y >= (h-lh-lw) &&dir >0) {
+			dir=0;
+			y = h-lh-lw;
+		}
+
+		if(y2 <= 0 && dir2<0) {
 			dir2=0;
+		}
+		if(y2 >= (h-lh-lw) && dir2>0) {
+			dir2=0;
+			y2 = h-lh-lw;
+		}
+	
 		y+=dir;
 		y2+=dir2;
 	}
@@ -110,9 +123,12 @@ class game extends JPanel
 		{
 			if(step %500000 == 0)
 			{
+				g.repaint();
+			}
+			if(step %1000000 ==0)
+			{
 				b.checkCollision(lw,x2,y,y2);
 				b.move();
-				g.repaint();
 			}
 			step++;
 		}
