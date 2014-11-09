@@ -46,7 +46,7 @@ class game extends JPanel
 		Graphics2D g2 = (Graphics2D) g;
 		int c = b.getCirc();
 
-		//System.out.println(x+", "+y+", "+x2+", "+y2);
+		/*System.out.println(x+", "+y+", "+x2+", "+y2);*/
 		g2.setColor(new Color(0xDCDCDC));//colouring the pieces white
 
 		//drawing two 'bats' and ball
@@ -125,7 +125,7 @@ class game extends JPanel
 
 		while(true) 
 		{
-			if(step %500000 == 0)
+			if(step %600000 == 0)
 			{
 				b.checkCollision(lw,x2,y,y2);
 				i = b.checkPoint();
