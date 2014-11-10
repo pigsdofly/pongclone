@@ -10,6 +10,7 @@ class game extends JPanel
 	public static JFrame frame;
 	private static final int w = 640;
 	private static final int h = 480;
+	public static final int accel = h/30;
 
 	public static int lw = w/20;
 	public static int lh = h/4;
@@ -24,7 +25,6 @@ class game extends JPanel
 
 	public static int dir;
 	public static int dir2;
-	public static int accel = h/30;
 	
 	public static ball b;
 
@@ -34,8 +34,6 @@ class game extends JPanel
 		super();
 		this.setBackground(Color.BLACK);
 		this.setSize(w,h);
-
-		System.out.println(lw+", "+x2);
 
 		b = new ball(w,h);
 
@@ -104,11 +102,34 @@ class game extends JPanel
 			dir2 = 0;
 		move();
 	}
+	
+	public void checkScore()
+	{
+		int i = b.checkPoint();
+		if(i != 0) {
+			game.score[i] += 1;
+			System.out.println("Player "+i+" Score:"+game.score[i]);
+		}
+	}
+
+	public void gameLoop()
+	{
+		int step = 0;
+		while(true) 
+		{
+			if(step %600000 == 0)
+			{
+				b.checkCollision(lw,x2,y,y2);
+				checkScore();
+				b.move();
+				repaint();
+			}
+			step++;
+		}
+	}
 
 	public static void main(String[] args)
 	{
-		int step = 0;
-		int i = 0;
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setSize(w,h);
@@ -120,30 +141,10 @@ class game extends JPanel
 		frame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				keyHandlerP1(e.getKeyCode());
-			}			
-		});
-		frame.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) { //Still not really working
 				keyHandlerP2(e.getKeyCode());
 			}			
 		});
-
-		while(true) 
-		{
-			if(step %600000 == 0)
-			{
-				b.checkCollision(lw,x2,y,y2);
-				i = b.checkPoint();
-				if(i != 0) {
-					game.score[i] += 1;
-					System.out.println("Player "+i+" Score:"+game.score[i]);
-				}
-				a.move();
-				b.move();
-				g.repaint();
-			}
-			step++;
-		}
-	}
 		
+		g.gameLoop();
+	}
 }

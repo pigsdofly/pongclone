@@ -2,14 +2,14 @@ import java.util.*;
 
 class ball
 {
+	private final int circ = 25;//init circumference
+
 	//Declarations
 	public int x,y,h,w;
 	public double tx, ty;
 	private double gradx,grady;
 
 	private boolean p1score,p2score;
-	
-	private int circ = 25;//init circumference
 
 	public ball(int w, int h)
 	{
@@ -22,13 +22,11 @@ class ball
 		this.y = h/2;
 		
 		initGrad();
-
-		//System.out.println(gradx+", "+grady+", "+x+", "+y);
 	}
 
 	private double randominRange(double min, double max)
 	{
-		return Math.random() * (max-min)+min;
+		return Math.random() * (max-min)+min;//random number gen
 	}
 
 	private void initGrad()
@@ -36,23 +34,27 @@ class ball
 		this.gradx = randominRange(-0.75,0.75);
 		this.grady = randominRange(-0.75,0.75);
 
-
 		if(gradx <= 0.15 && gradx>= -0.15 || grady >=-0.15 && grady<=0.15)
-			initGrad(); 		
+			initGrad(); 		//if gradient initialized is too low
 	}
 
 
 	public void checkCollision(int bx,int bx2,int by, int by2)
 	{	
-		if(this.x == bx && this.y >= by && this.y <=(by+(h/4))) 
-			reflect();
-		
-		if(this.x == bx2 && this.y >= by2 && this.y <= (by2+(h/4))) 
-			reflect();
-		
+		checkBat(bx,by);
+		checkBat(bx2,by2);
+		checkUpperLower();
+		checkScore();
+	}
+
+	private void checkUpperLower()
+	{
 		if(this.y >= h || this.y-circ <= 0)
 			this.grady *= -1;
-		
+	}
+	
+	private void checkScore()
+	{
 		if(this.x <= 0) {
 			resetPos();
 			p2score = true;
@@ -61,6 +63,13 @@ class ball
 			resetPos();
 			p1score = true;
 		}
+		
+	}
+	private void checkBat(int bx,int by)
+	{
+		if(this.x == bx && this.y >= by && this.y <=(by+(h/4))) 
+			reflect();
+		
 	}
 
 	private void resetPos()
