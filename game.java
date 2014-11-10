@@ -8,8 +8,8 @@ class game extends JPanel
 {
 	//Declarations
 	public static JFrame frame;
-	private static int w = 640;
-	private static int h = 480;
+	private static final int w = 640;
+	private static final int h = 480;
 
 	public static int lw = w/20;
 	public static int lh = h/4;
@@ -27,7 +27,6 @@ class game extends JPanel
 	public static int accel = h/30;
 	
 	public static ball b;
-	public static AI a;
 
 	//Constructor,creates ball in middle of board
 	public game()
@@ -52,10 +51,13 @@ class game extends JPanel
 		/*System.out.println(x+", "+y+", "+x2+", "+y2);*/
 		g2.setColor(new Color(0xDCDCDC));//colouring the pieces white
 
+
 		//drawing two 'bats' and ball
 		g2.fillRect(x,y,lw,lh);
 		g2.fillRect(x2-10,y2,lw,lh);
 		g2.fillOval(b.x-c,b.y-c,c,c);
+		
+		g2.drawString(game.score[1] + ":" + game.score[2],w/2,10);
 
 
 	}
@@ -114,7 +116,6 @@ class game extends JPanel
 		
 		game g = new game();
 		frame.add(g);
-		a = new AI(y2,b.x,b.y,accel,h);
 
 		frame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
