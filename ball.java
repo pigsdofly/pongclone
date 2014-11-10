@@ -7,7 +7,6 @@ class ball
 	public double tx, ty;
 	private double gradx,grady;
 
-
 	private boolean p1score,p2score;
 	
 	private int circ = 25;//init circumference
@@ -44,14 +43,12 @@ class ball
 
 
 	public void checkCollision(int bx,int bx2,int by, int by2)
-	{
-		if(this.x >= bx2 && this.y >= by2 && this.y <= (by2+(h/4))) 
+	{	
+		if(this.x == bx && this.y >= by && this.y <=(by+(h/4))) 
 			reflect();
 		
-		
-		if(this.x <= bx && this.y >= by && this.y <=(by+(h/4))) 
+		if(this.x == bx2 && this.y >= by2 && this.y <= (by2+(h/4))) 
 			reflect();
-		
 		
 		if(this.y >= h || this.y-circ <= 0)
 			this.grady *= -1;

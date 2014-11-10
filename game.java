@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.awt.geom.*;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 class game extends JPanel 
 {
 	//Declarations
@@ -10,7 +11,7 @@ class game extends JPanel
 	private static int w = 640;
 	private static int h = 480;
 
-	public static int lw = h/20;
+	public static int lw = w/20;
 	public static int lh = h/4;
 	
 	public static int x = 0;
@@ -23,8 +24,10 @@ class game extends JPanel
 
 	public static int dir;
 	public static int dir2;
+	public static int accel = h/30;
 	
 	public static ball b;
+	public static AI a;
 
 	//Constructor,creates ball in middle of board
 	public game()
@@ -82,9 +85,9 @@ class game extends JPanel
 	public static void keyHandlerP1(int kC)
 	{
 		if(kC == 38) //Arrow key up
-			dir = -10;
+			dir = -accel;
 		else if(kC == 40) //Arrow key down
-			dir = 10;
+			dir = accel;
 		else
 			dir = 0;
 		move();
@@ -92,9 +95,9 @@ class game extends JPanel
 	public static void keyHandlerP2(int kC)
 	{
 		if(kC == 87) //W
-			dir2 = -10;
+			dir2 = -accel;
 		else if(kC == 83) //S
-			dir2 = 10;
+			dir2 = accel;
 		else 
 			dir2 = 0;
 		move();
@@ -111,6 +114,7 @@ class game extends JPanel
 		
 		game g = new game();
 		frame.add(g);
+		a = new AI(y2,b.x,b.y,accel,h);
 
 		frame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
@@ -133,6 +137,7 @@ class game extends JPanel
 					game.score[i] += 1;
 					System.out.println("Player "+i+" Score:"+game.score[i]);
 				}
+				a.move();
 				b.move();
 				g.repaint();
 			}
