@@ -22,7 +22,6 @@ class bat
 
 	public void keyHandler(int kC)
 	{
-		System.out.println("I am being called");
 		if(kC == key1)
 			dir = -accel;
 		else if(kC == key2)

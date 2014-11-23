@@ -83,7 +83,7 @@ class game extends JPanel
 		{
 			if(step %600000 == 0)
 			{
-				b.checkCollision(lw,x2,y,y2);
+				b.checkCollision(p1.lw,p2.x,p1.y,p2.y);
 				checkScore();
 				b.move();
 				repaint();
@@ -102,9 +102,8 @@ class game extends JPanel
 		game g = new game();
 		frame.add(g);
 
-		g.addKeyListener(new KeyAdapter() {
+		frame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				System.out.println("is there anybody in there?");
 				p1.keyHandler(e.getKeyCode());
 				p2.keyHandler(e.getKeyCode());
 			}			
