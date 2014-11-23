@@ -27,6 +27,8 @@ class game extends JPanel
 	public static int dir2;
 	
 	public static ball b;
+	public static bat p1;
+	public static bat p2;
 
 	//Constructor,creates ball in middle of board
 	public game()
@@ -36,6 +38,10 @@ class game extends JPanel
 		this.setSize(w,h);
 
 		b = new ball(w,h);
+
+		p1 = new bat(x,y,w,h,38,40);
+		p2 = new bat(x2-10,y,w,h,87,83);
+		
 
 	}
 
@@ -51,8 +57,8 @@ class game extends JPanel
 
 
 		//drawing two 'bats' and ball
-		g2.fillRect(x,y,lw,lh);
-		g2.fillRect(x2-10,y2,lw,lh);
+		g2.fillRect(p1.x,p1.y,p1.lw,p1.lh);
+		g2.fillRect(p2.x,p2.y,p2.lw,p2.lh);
 		g2.fillOval(b.x-c,b.y-c,c,c);
 		
 		g2.drawString(game.score[1] + ":" + game.score[2],w/2,10);
@@ -60,48 +66,6 @@ class game extends JPanel
 
 	}
 
-	public static void move()
-	{
-		if(y <= 0 && dir<0 ) { //if collision with edge
-			dir=0;
-		}
-		if(y >= (h-lh-lw) &&dir >0) {
-			dir=0;
-			y = h-lh-lw;
-		}
-
-		if(y2 <= 0 && dir2<0) {
-			dir2=0;
-		}
-		if(y2 >= (h-lh-lw) && dir2>0) {
-			dir2=0;
-			y2 = h-lh-lw;
-		}
-	
-		y+=dir;
-		y2+=dir2;
-	}
-
-	public static void keyHandlerP1(int kC)
-	{
-		if(kC == 38) //Arrow key up
-			dir = -accel;
-		else if(kC == 40) //Arrow key down
-			dir = accel;
-		else
-			dir = 0;
-		move();
-	}	
-	public static void keyHandlerP2(int kC)
-	{
-		if(kC == 87) //W
-			dir2 = -accel;
-		else if(kC == 83) //S
-			dir2 = accel;
-		else 
-			dir2 = 0;
-		move();
-	}
 	
 	public void checkScore()
 	{
@@ -138,10 +102,11 @@ class game extends JPanel
 		game g = new game();
 		frame.add(g);
 
-		frame.addKeyListener(new KeyAdapter() {
+		g.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				keyHandlerP1(e.getKeyCode());
-				keyHandlerP2(e.getKeyCode());
+				System.out.println("is there anybody in there?");
+				p1.keyHandler(e.getKeyCode());
+				p2.keyHandler(e.getKeyCode());
 			}			
 		});
 		
